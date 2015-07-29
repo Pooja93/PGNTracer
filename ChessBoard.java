@@ -43,7 +43,7 @@ public class ChessBoard {
     
     public boolean isValidKnightMove(int fromX,int fromY, int toX, int toY){
 		int xdiff = Math.abs(fromX-toX);
-		int ydiff = Math.abs(toY-toY);
+		int ydiff = Math.abs(fromY-toY);
 		if((xdiff == 1 && ydiff == 2) || (xdiff == 2 && ydiff == 1))
 			return true;
 		else 
