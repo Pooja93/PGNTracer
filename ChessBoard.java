@@ -53,7 +53,7 @@ public class ChessBoard {
     public boolean isValidRookMove(int fromX,int fromY, int toX, int toY){
 		if(fromX == toX) {
 			for (int i = Math.min(fromY,toY) + 1; i < Math.max(fromY,toY); i++ ) {
-				if (board[fromX][i].equals("")) {
+				if (!board[fromX][i].equals("")) {
 					return false;
 				}
 			}
@@ -61,7 +61,7 @@ public class ChessBoard {
 		}
 		if(fromY == toY) {
 			for (int i = Math.min(fromX,toX) + 1; i < Math.max(fromX,toX); i++ ) {
-				if (board[i][fromY].equals("")) {
+				if (!board[i][fromY].equals("")) {
 					return false;
 				}
 			}
@@ -69,6 +69,56 @@ public class ChessBoard {
 		}
         return false;
     }
+    
+    public boolean isValidBishopMove(int fromX,int fromY, int toX, int toY){
+		if (Math.abs(fromX-toX) == Math.abs(fromY-toY)) {
+			if (fromX < toX) {
+				if (fromY < toY) {
+					System.out.println("case1");
+					for( int i = fromX + 1, j = fromY + 1 ; i < toX && j < toY ; i++, j++) {
+						if (!board[i][j].equals("")) {
+							return false;	
+						}
+					}
+					return true;
+				}
+				else {
+					System.out.println("case2");
+					for( int i = fromX + 1, j = fromY - 1 ; i < toX && j > toY ; i++, j--) {
+						if (!board[i][j].equals("")) {
+							return false;	
+						}
+					}
+					return true;//+ -
+				}
+			}
+			else {
+				if (fromY < toY) {
+					System.out.println("case3");
+					for( int i = fromX - 1, j = fromY + 1 ; i > toX && j < toY ; i--, j++) {
+						if (!board[i][j].equals("")) {
+							return false;	
+						}
+					}
+					return true;
+					//- +
+				}
+				else {
+					System.out.println("case4");
+					for( int i = fromX - 1, j = fromY - 1; i > toX && j > toY ; i--, j--) {
+						if (!board[i][j].equals("")) {
+							return false;	
+						}
+					}
+					return true;
+					//- -
+				}
+			}
+		}
+		else {
+			return false;
+		}
+	}
     
     public boolean isValidKingMove(int x1, int y1, int x2, int y2){
        
