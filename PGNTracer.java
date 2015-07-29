@@ -1,145 +1,164 @@
+package pgn;
+
 public class PGNTracer {
 
     private ChessBoard chessBoard;
-    
+
     public PGNTracer() {
-        chessBoard = new ChessBoard(); 
+        chessBoard = new ChessBoard();
     }
-    
+
     public enum Piece {
+
         PAWN, KING, QUEEN, ROOKS, BISHOP, KNIGHT;
     }
-    public boolean isCapture(String move){
-	   return (move.indexOf('x') != -1);
-		
-	}
-    
+
     public void makeMove(char color, String move) {
-       
+
         int posi;
         int posj;
         int posNewi;
         int posNewj;
-        
-        if(!isAmbiguous()){
-            if(findPiece(move)==Piece.PAWN){
-                posNewi = getRowIndex(move);
-                posNewj = getColumnIndex(move);
-                for(int i = 1; i < 9; i++){
-                    if (color == 'W'){
-                        posi =  chessBoard.pieceToIndex.get("p"+i)[0];
-                        posj =  chessBoard.pieceToIndex.get("p"+i)[1];
-                    }
-                    else{
-                        posi =  chessBoard.pieceToIndex.get("P"+i)[0];
-                        posj =  chessBoard.pieceToIndex.get("P"+i)[1];
-                    }
-                        
-                    if(chessBoard.isValidPawnMove(color,posi, posj, posNewi, posNewj)){    
-                        chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
-                        
-                    }   
+        String pieceName;
+        if (!isAmbiguous()) {
+            if (findPiece(move) == Piece.PAWN) {
+                posNewi = getRowIndex(move.substring(move.length() - 2));
+                posNewj = getColumnIndex(move.substring(move.length() - 2));
+                if (color == 'W') {
+                        pieceName = "p";
+                } else {
+                    pieceName = "P";
                 }
-            }
-            else if(findPiece(move)==Piece.KNIGHT){
-                    posNewi = getRowIndex(move.substring(move.length()-1,move.length()));
-                    posNewj = getColumnIndex(move.substring(move.length()-1,move.length()));
-                    
-                    for(int i = 1; i < 3; i++){
-                        if (color == 'W'){
-                            posi =  chessBoard.pieceToIndex.get("n"+i)[0];
-                            posj =  chessBoard.pieceToIndex.get("n"+i)[1];
+                for (int i = 1; i < 9; i++) {                                
+                    if(chessBoard.pieceToIndex.containsKey(pieceName + i)) {
+                        posi = chessBoard.pieceToIndex.get(pieceName + i)[0];
+                        posj = chessBoard.pieceToIndex.get(pieceName + i)[1];
+                        if (chessBoard.isValidPawnMove(color, posi, posj, posNewi, posNewj, isCapture(move))) {
+                            chessBoard.updateChessBoard(posi, posj, posNewi, posNewj, isCapture(move));
                         }
-                        else{
-                            posi =  chessBoard.pieceToIndex.get("N"+i)[0];
-                            posj =  chessBoard.pieceToIndex.get("N"+i)[1];
-                        }
-                        System.out.println(posi+" "+posj);    
-                        if(chessBoard.isValidKnightMove(posi, posj, posNewi, posNewj)){    
-                            chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
-                            break;
-                        }   
-                }
-            }
-            else if(findPiece(move)==Piece.BISHOP){
-                    posNewi = getRowIndex(move.substring(move.length()-1,move.length()));
-                    posNewj = getColumnIndex(move.substring(move.length()-1,move.length()));
-                    
-                    for(int i = 1; i < 3; i++){
-                        if (color == 'W'){
-                            posi =  chessBoard.pieceToIndex.get("b"+i)[0];
-                            posj =  chessBoard.pieceToIndex.get("b"+i)[1];
-                        }
-                        else{
-                            posi =  chessBoard.pieceToIndex.get("B"+i)[0];
-                            posj =  chessBoard.pieceToIndex.get("B"+i)[1];
-                        }
-                        if(chessBoard.isValidBishopMove(posi, posj, posNewi, posNewj)){    
-                            chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
-                            break;
-                        }   
-                }
-            }
-            else if(findPiece(move)==Piece.QUEEN){
-                    posNewi = getRowIndex(move.substring(move.length()-1,move.length()));
-                    posNewj = getColumnIndex(move.substring(move.length()-1,move.length()));
-                    
-                    if (color == 'W'){
-                        posi =  chessBoard.pieceToIndex.get("q")[0];
-                        posj =  chessBoard.pieceToIndex.get("q")[1];
                     }
-                    else{
-                        posi =  chessBoard.pieceToIndex.get("Q")[0];
-                        posj =  chessBoard.pieceToIndex.get("Q")[1];
-                    }
-                    if(chessBoard.isValidQueenMove(posi, posj, posNewi, posNewj)){    
-                        chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
-                    }   
+                }
+            } else if (findPiece(move) == Piece.KNIGHT) {
+                posNewi = getRowIndex(move.substring(move.length() - 2));
+                posNewj = getColumnIndex(move.substring(move.length() - 2));
                 
+                if (color == 'W') {
+                    pieceName = "n";
+                } else {
+                    pieceName = "N";
+                }
+                for (int i = 1; i < 3; i++) {
+                    if(chessBoard.pieceToIndex.containsKey(pieceName + i)) {
+                        posi = chessBoard.pieceToIndex.get(pieceName + i)[0];
+                        posj = chessBoard.pieceToIndex.get(pieceName + i)[1];
+                    
+                        if (chessBoard.isValidKnightMove(posi, posj, posNewi, posNewj)) {
+                            chessBoard.updateChessBoard(posi, posj, posNewi, posNewj, isCapture(move));
+                            break;
+                        }
+                    }
+                }
+            } else if (findPiece(move) == Piece.BISHOP) {
+                posNewi = getRowIndex(move.substring(move.length() - 2));
+                posNewj = getColumnIndex(move.substring(move.length() - 2));
+                
+                if (color == 'W') {
+                    pieceName = "b";
+                } else {
+                    pieceName = "B";
+                }
+                
+                for (int i = 1; i < 3; i++) {
+                    if(chessBoard.pieceToIndex.containsKey(pieceName + i)) {
+                        posi = chessBoard.pieceToIndex.get(pieceName + i)[0];
+                        posj = chessBoard.pieceToIndex.get(pieceName + i)[1];
+                  
+                        if (chessBoard.isValidBishopMove(posi, posj, posNewi, posNewj)) {
+                            chessBoard.updateChessBoard(posi, posj, posNewi, posNewj, isCapture(move));
+                            break;
+                        }
+                    }
+                }
+            } else if (findPiece(move) == Piece.QUEEN) {
+                posNewi = getRowIndex(move.substring(move.length() - 2));
+                posNewj = getColumnIndex(move.substring(move.length() - 2));
+                
+                if (color == 'W') {
+                    pieceName = "q";
+                } else {
+                    pieceName = "Q";
+                }
+                
+                if(chessBoard.pieceToIndex.containsKey(pieceName)) {
+                    posi = chessBoard.pieceToIndex.get(pieceName)[0];
+                    posj = chessBoard.pieceToIndex.get(pieceName)[1];
+                
+                    if (chessBoard.isValidQueenMove(posi, posj, posNewi, posNewj)) {
+                        chessBoard.updateChessBoard(posi, posj, posNewi, posNewj, isCapture(move));
+                    }
+                }
+            }
+            else if (findPiece(move) == Piece.KING) {
+                posNewi = getRowIndex(move.substring(move.length() - 2));
+                posNewj = getColumnIndex(move.substring(move.length() - 2));
+                
+                if (color == 'W') {
+                    pieceName = "k";
+                } else {
+                    pieceName = "K";
+                }
+                
+                if(chessBoard.pieceToIndex.containsKey(pieceName)) {
+                    posi = chessBoard.pieceToIndex.get(pieceName)[0];
+                    posj = chessBoard.pieceToIndex.get(pieceName)[1];
+                
+                    if (chessBoard.isValidKingMove(posi, posj, posNewi, posNewj)) {
+                        chessBoard.updateChessBoard(posi, posj, posNewi, posNewj, isCapture(move));
+                    }
+                }
             }
             
         }
     }
-    
-    private boolean isAmbiguous(){
+
+    private boolean isAmbiguous() {
         return false;
     }
-    
-    private Piece findPiece(String move){
+
+    private Piece findPiece(String move) {
         char firstChar = move.charAt(0);
-        if (firstChar == 'O'){
+        if (firstChar == 'O') {
             return null;
-        }
-        else if (firstChar == 'K'){
+        } else if (firstChar == 'K') {
             return Piece.KING;
-        }
-        else if (firstChar == 'Q'){
+        } else if (firstChar == 'Q') {
             return Piece.QUEEN;
-        }
-        else if (firstChar == 'R'){
+        } else if (firstChar == 'R') {
             return Piece.ROOKS;
-        }
-        else if (firstChar == 'N'){
+        } else if (firstChar == 'N') {
             return Piece.KNIGHT;
-        }
-        else if (firstChar == 'B'){
+        } else if (firstChar == 'B') {
             return Piece.BISHOP;
-        }
-        else
+        } else {
             return Piece.PAWN;
+        }
     }
 
     public void displayBoard() {
-		chessBoard.printBoard();
-
-	}
-    public int  getColumnIndex(String move) {
-		
-		return move.charAt(0) - 'a';
-		
+        chessBoard.printBoard();
     }
-    
+
+    public int getColumnIndex(String move) {
+
+        return move.charAt(0) - 'a';
+    }
+
     public int getRowIndex(String pgnMove) {
-        return 8 - Integer.parseInt(""+pgnMove.charAt(1));
-    }    
+        return 8 - Integer.parseInt("" + pgnMove.charAt(1));
+    }
+
+    public boolean isCapture(String move) {
+        return (move.indexOf('x') != -1);
+
+    }
 }
