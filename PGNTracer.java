@@ -9,6 +9,10 @@ public class PGNTracer {
     public enum Piece {
         PAWN, KING, QUEEN, ROOKS, BISHOP, KNIGHT;
     }
+    public boolean isCapture(String move){
+	   return (move.indexOf('x') != -1);
+		
+	}
     
     public void makeMove(char color, String move) {
        
