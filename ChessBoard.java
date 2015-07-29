@@ -27,9 +27,19 @@ public class ChessBoard {
 		
     }
     
-    public void printBoard(){
-        
-    }
+   	public void printBoard() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (board[i][j] == "")
+					System.out.print("." + " ");
+				else
+
+					System.out.print(board[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+	}
     
     public boolean isValidKnightMove(String knight, String move){
        
