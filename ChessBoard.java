@@ -41,23 +41,23 @@ public class ChessBoard {
 
 	}
     
-    public boolean isValidKnightMove(String knight, String move){
+    public boolean isValidKnightMove(int x1, int y1, int x2, int y2){
        
         return true;
     }
-    public boolean isValidRookMove(String rook, String move){
+    public boolean isValidRookMove(int x1, int y1, int x2, int y2){
        
         return true;
     }
-    public boolean isValidKingMove(String king, String move){
+    public boolean isValidKingMove(int x1, int y1, int x2, int y2){
        
         return true;
     }
-    public boolean isValidQueenMove(String queen, String move){
+    public boolean isValidQueenMove(int x1, int y1, int x2, int y2){
        
         return true;
     }
-    public boolean isValidPawnMove(String pawn, String move){
+    public boolean isValidPawnMove(int x1, int y1, int x2, int y2){
        
         return true;
     }
