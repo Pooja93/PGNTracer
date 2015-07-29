@@ -37,6 +37,26 @@ public class PGNTracer {
                     
                 }
             }
+            else if(findPiece(move)==Piece.KNIGHT){
+                    posNewi = getRowIndex(move.substring(1,move.length()));
+                    posNewj = getColumnIndex(move.substring(1,move.length()));
+                    
+                    for(int i = 1; i < 3; i++){
+                        if (color == 'W'){
+                            posi =  chessBoard.pieceToIndex.get("n"+i)[0];
+                            posj =  chessBoard.pieceToIndex.get("n"+i)[1];
+                        }
+                        else{
+                            posi =  chessBoard.pieceToIndex.get("N"+i)[0];
+                            posj =  chessBoard.pieceToIndex.get("N"+i)[1];
+                        }
+              
+                        if(chessBoard.isValidKnightMove(posi, posj, posNewi, posNewj)){    
+                            chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
+                            break;
+                        }   
+                }
+            }
         }
     }
     
