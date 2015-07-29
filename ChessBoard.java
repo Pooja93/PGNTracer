@@ -78,10 +78,38 @@ public class ChessBoard {
        
         return true;
     }
-    public boolean isValidPawnMove(int x1, int y1, int x2, int y2){
-       
-        return true;
-    }
+    
+	public boolean isValidPawnMove(char color, int fromX, int fromY, int toX, int toY) {
+		if (color == 'B') {
+			if (fromX == 1) {
+				if ((fromY == toY) && (toX == 2 || toX == 3))
+					return true;
+				else
+					return false;
+			} else {
+				if ((fromY == toY) && toX == fromX + 1)
+					return true;
+				else
+					return false;
+			}
+
+		} else {
+			if (fromX == 6) {
+				if ((fromY == toY) && (toX == 5 || toX == 4))
+					return true;
+				else
+					return false;
+			} else {
+				if ((fromY == toY) && toX == fromX - 1)
+					return true;
+				else
+					return false;
+
+			}
+
+		}
+
+	}
     public void updateChessBoard(int x1, int y1, int x2, int y2){
     }
 }
