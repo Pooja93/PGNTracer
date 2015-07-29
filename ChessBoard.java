@@ -74,7 +74,6 @@ public class ChessBoard {
 		if (Math.abs(fromX-toX) == Math.abs(fromY-toY)) {
 			if (fromX < toX) {
 				if (fromY < toY) {
-					System.out.println("case1");
 					for( int i = fromX + 1, j = fromY + 1 ; i < toX && j < toY ; i++, j++) {
 						if (!board[i][j].equals("")) {
 							return false;	
@@ -83,7 +82,6 @@ public class ChessBoard {
 					return true;
 				}
 				else {
-					System.out.println("case2");
 					for( int i = fromX + 1, j = fromY - 1 ; i < toX && j > toY ; i++, j--) {
 						if (!board[i][j].equals("")) {
 							return false;	
@@ -94,7 +92,6 @@ public class ChessBoard {
 			}
 			else {
 				if (fromY < toY) {
-					System.out.println("case3");
 					for( int i = fromX - 1, j = fromY + 1 ; i > toX && j < toY ; i--, j++) {
 						if (!board[i][j].equals("")) {
 							return false;	
@@ -104,7 +101,6 @@ public class ChessBoard {
 					//- +
 				}
 				else {
-					System.out.println("case4");
 					for( int i = fromX - 1, j = fromY - 1; i > toX && j > toY ; i--, j--) {
 						if (!board[i][j].equals("")) {
 							return false;	
@@ -130,7 +126,15 @@ public class ChessBoard {
 		return false;
 	}
     
-	public boolean isValidPawnMove(char color, int fromX, int fromY, int toX, int toY) {
+	public boolean isValidPawnMove(char color, int fromX, int fromY, int toX, int toY,boolean isCapture) {
+		if (isCapture) {
+			if (Math.abs(fromX-toX) == Math.abs(fromY-toY) && Math.abs(fromX-toX) == 1 && Math.abs(fromY-toY) == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 		if (color == 'B') {
 			if (fromX == 1) {
 				if ((fromY == toY) && (toX == 2 || toX == 3))
