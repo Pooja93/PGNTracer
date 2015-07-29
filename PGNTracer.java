@@ -10,9 +10,17 @@ public class PGNTracer {
         PAWN, KING, QUEEN, ROOKS, BISHOP, KNIGHT;
     }
     
-    public void makeMove(String move) {
-        
-        findPiece()
+    public void makeBlackMove(String move) {
+        if(!isAmbiguous()){
+            if(findPiece(move)==Piece.PAWN){
+                //Itereate through all black pawns
+                for(int i = 1; i < 9; i++){
+                    if(chessBoard.isValidPawnMove("p"+i, move)){
+                        chessBoard.updateChessBoard("p"+i, getRowIndex(move), getColumnIndex(move));
+                    }
+                }
+            }
+        }
     }
     
     public void displayBoard() {
