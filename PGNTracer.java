@@ -38,8 +38,8 @@ public class PGNTracer {
                 }
             }
             else if(findPiece(move)==Piece.KNIGHT){
-                    posNewi = getRowIndex(move.substring(1,move.length()));
-                    posNewj = getColumnIndex(move.substring(1,move.length()));
+                    posNewi = getRowIndex(move.substring(move.length()-1,move.length()));
+                    posNewj = getColumnIndex(move.substring(move.length()-1,move.length()));
                     
                     for(int i = 1; i < 3; i++){
                         if (color == 'W'){
@@ -56,6 +56,42 @@ public class PGNTracer {
                             break;
                         }   
                 }
+            }
+            else if(findPiece(move)==Piece.BISHOP){
+                    posNewi = getRowIndex(move.substring(move.length()-1,move.length()));
+                    posNewj = getColumnIndex(move.substring(move.length()-1,move.length()));
+                    
+                    for(int i = 1; i < 3; i++){
+                        if (color == 'W'){
+                            posi =  chessBoard.pieceToIndex.get("b"+i)[0];
+                            posj =  chessBoard.pieceToIndex.get("b"+i)[1];
+                        }
+                        else{
+                            posi =  chessBoard.pieceToIndex.get("B"+i)[0];
+                            posj =  chessBoard.pieceToIndex.get("B"+i)[1];
+                        }
+                        if(chessBoard.isValidBishopMove(posi, posj, posNewi, posNewj)){    
+                            chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
+                            break;
+                        }   
+                }
+            }
+            else if(findPiece(move)==Piece.QUEEN){
+                    posNewi = getRowIndex(move.substring(move.length()-1,move.length()));
+                    posNewj = getColumnIndex(move.substring(move.length()-1,move.length()));
+                    
+                    if (color == 'W'){
+                        posi =  chessBoard.pieceToIndex.get("q")[0];
+                        posj =  chessBoard.pieceToIndex.get("q")[1];
+                    }
+                    else{
+                        posi =  chessBoard.pieceToIndex.get("Q")[0];
+                        posj =  chessBoard.pieceToIndex.get("Q")[1];
+                    }
+                    if(chessBoard.isValidQueenMove(posi, posj, posNewi, posNewj)){    
+                        chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
+                    }   
+                
             }
             
         }
