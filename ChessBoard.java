@@ -41,10 +41,15 @@ public class ChessBoard {
 
 	}
     
-    public boolean isValidKnightMove(int x1, int y1, int x2, int y2){
-       
-        return true;
+    public boolean isValidKnightMove(int fromX,int fromY, int toX, int toY){
+		int xdiff = Math.abs(fromX-toX);
+		int ydiff = Math.abs(toY-toY);
+		if((xdiff == 1 && ydiff == 2) || (xdiff == 2 && ydiff == 1))
+			return true;
+		else 
+			return false;
     }
+    
     public boolean isValidRookMove(int x1, int y1, int x2, int y2){
        
         return true;
