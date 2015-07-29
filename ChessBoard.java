@@ -1,3 +1,9 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pgn;
 import java.util.*;
 
 public class ChessBoard {
@@ -38,7 +44,7 @@ public class ChessBoard {
 			}
 			System.out.println();
 		}
-
+            System.out.println("-------------------------------------------------------------");
 	}
     
     public boolean isValidKnightMove(int fromX,int fromY, int toX, int toY){
@@ -117,7 +123,6 @@ public class ChessBoard {
 	}
     
     public boolean isValidKingMove(int x1, int y1, int x2, int y2){
-       
         return true;
     }
     public boolean isValidQueenMove(int fromX, int fromY, int toX, int toY) {
@@ -166,13 +171,8 @@ public class ChessBoard {
 
 	}
     
-		public void updateChessBoard(int fromX, int fromY, int toX, int toY, boolean isCapture) {
-
+	public void updateChessBoard(int fromX, int fromY, int toX, int toY, boolean isCapture) {
 		String piece = board[fromX][fromY];
-		if (isCapture) {
-			String replacedPiece = board[toX][toY];
-			pieceToIndex.remove(replacedPiece);
-		}
 		board[toX][toY] = piece;
 		board[fromX][fromY] = "";
 		int[] indices = { toX, toY };
