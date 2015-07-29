@@ -50,10 +50,26 @@ public class ChessBoard {
 			return false;
     }
     
-    public boolean isValidRookMove(int x1, int y1, int x2, int y2){
-       
-        return true;
+    public boolean isValidRookMove(int fromX,int fromY, int toX, int toY){
+		if(fromX == toX) {
+			for (int i = Math.min(fromY,toY) + 1; i < Math.max(fromY,toY); i++ ) {
+				if (board[fromX][i].equals("")) {
+					return false;
+				}
+			}
+			return true;
+		}
+		if(fromY == toY) {
+			for (int i = Math.min(fromX,toX) + 1; i < Math.max(fromX,toX); i++ ) {
+				if (board[i][fromY].equals("")) {
+					return false;
+				}
+			}
+			return true;
+		}
+        return false;
     }
+    
     public boolean isValidKingMove(int x1, int y1, int x2, int y2){
        
         return true;
