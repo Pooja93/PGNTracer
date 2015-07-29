@@ -10,31 +10,29 @@ public class ChessBoard {
         {"r1","n1","b1","q","k","b2","n2","r2"}
         };
     
-    ChessBoard(){
-        
-   }
     public void printBoard(){
         
     }
     
-    public boolean isValidKnightMove(){
+    public boolean isValidKnightMove(String knight, String move){
        
         return true;
     }
-    public boolean isValidRookMove(){
+    public boolean isValidRookMove(String rook, String move){
        
         return true;
     }
-    public boolean isValidKingMove(){
+    public boolean isValidKingMove(String king, String move){
        
         return true;
     }
-    public boolean isValidQueenMove(){
+    public boolean isValidQueenMove(String queen, String move){
        
         return true;
     }
-    public boolean isValidPawnMove(){
+    public boolean isValidPawnMove(String pawn, String move){
        
         return true;
-    }   
+    }
+    
 }
