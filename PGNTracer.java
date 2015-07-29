@@ -1,12 +1,18 @@
 public class PGNTracer {
+	
     private ChessBoard chessBoard;
     
     public PGNTracer() {
         chessBoard = new chessBoard(); 
     }
     
+    public enum Piece {
+        PAWN, KING, QUEEN, ROOKS, BISHOP, KNIGHT;
+    }
+    
     public void makeMove(String move) {
         
+        findPiece()
     }
     
     public void displayBoard() {
