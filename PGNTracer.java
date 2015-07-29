@@ -39,9 +39,29 @@ public class PGNTracer {
     }
     
     private Piece findPiece(String move){
-        return Piece.PAWN;
+        char firstChar = move.charAt(0);
+        if (firstChar == 'O'){
+            return null;
+        }
+        else if (firstChar == 'K'){
+            return Piece.KING;
+        }
+        else if (firstChar == 'Q'){
+            return Piece.QUEEN;
+        }
+        else if (firstChar == 'R'){
+            return Piece.ROOKS;
+        }
+        else if (firstChar == 'N'){
+            return Piece.KNIGHT;
+        }
+        else if (firstChar == 'B'){
+            return Piece.BISHOP;
+        }
+        else
+            return Piece.PAWN;
     }
-    
+
     public void displayBoard() {
 		chessBoard.printBoard();
 
