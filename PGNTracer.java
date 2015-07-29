@@ -23,6 +23,14 @@ public class PGNTracer {
         }
     }
     
+    private boolean isAmbiguous(){
+        return false;
+    }
+    
+    private Piece findPiece(String move){
+        return Piece.PAWN;
+    }
+    
     public void displayBoard() {
         
     }
