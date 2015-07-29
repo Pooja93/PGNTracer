@@ -124,10 +124,11 @@ public class ChessBoard {
        
         return true;
     }
-    public boolean isValidQueenMove(int x1, int y1, int x2, int y2){
-       
-        return true;
-    }
+    public boolean isValidQueenMove(int fromX, int fromY, int toX, int toY) {
+		if (isValidBishopMove(fromX, fromY, toX, toY) || isValidRookMove(fromX, fromY, toX, toY))
+			return true;
+		return false;
+	}
     
 	public boolean isValidPawnMove(char color, int fromX, int fromY, int toX, int toY) {
 		if (color == 'B') {
