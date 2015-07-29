@@ -3,7 +3,7 @@ public class PGNTracer {
     private ChessBoard chessBoard;
     
     public PGNTracer() {
-        chessBoard = new chessBoard(); 
+        chessBoard = new ChessBoard(); 
     }
     
     public enum Piece {
@@ -11,7 +11,7 @@ public class PGNTracer {
     }
     
     public void makeWhiteMove(String move) {
-           int posi;
+        int posi;
         int posj;
         int posNewi;
         int posNewj;
