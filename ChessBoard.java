@@ -166,8 +166,13 @@ public class ChessBoard {
 
 	}
     
-	public void updateChessBoard(int fromX, int fromY, int toX, int toY) {
+		public void updateChessBoard(int fromX, int fromY, int toX, int toY, boolean isCapture) {
+
 		String piece = board[fromX][fromY];
+		if (isCapture) {
+			String replacedPiece = board[toX][toY];
+			pieceToIndex.remove(replacedPiece);
+		}
 		board[toX][toY] = piece;
 		board[fromX][fromY] = "";
 		int[] indices = { toX, toY };
