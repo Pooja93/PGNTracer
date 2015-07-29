@@ -66,5 +66,6 @@ public class ChessBoard {
        
         return true;
     }
-    
+    public void updateChessBoard(int x1, int y1, int x2, int y2){
+    }
 }
