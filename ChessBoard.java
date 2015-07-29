@@ -31,10 +31,10 @@ public class ChessBoard {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (board[i][j] == "")
-					System.out.print("." + " ");
+					System.out.print("." + "\t");
 				else
 
-					System.out.print(board[i][j] + " ");
+					System.out.print(board[i][j] + "\t");
 			}
 			System.out.println();
 		}
