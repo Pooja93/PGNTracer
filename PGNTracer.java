@@ -32,8 +32,9 @@ public class PGNTracer {
     }
     
     public void displayBoard() {
-        
-    }
+		chessBoard.printBoard();
+
+	}
     public int  getColumnIndex(String move) {
 		
 		return move.charAt(0) - 'a';
