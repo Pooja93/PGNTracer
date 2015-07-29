@@ -12,6 +12,11 @@ public class PGNTracer {
     public void displayBoard() {
         
     }
+    static int  getColumnIndex(String move) {
+		
+		return move.charAt(0) - 'a';
+		
+	}
     
     
 }
