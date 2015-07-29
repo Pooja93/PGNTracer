@@ -1,5 +1,5 @@
 public class PGNTracer {
-	
+
     private ChessBoard chessBoard;
     
     public PGNTracer() {
@@ -11,18 +11,18 @@ public class PGNTracer {
     }
     
     public void makeMove(char color, String move) {
-        
+       
         int posi;
         int posj;
         int posNewi;
         int posNewj;
         
         if(!isAmbiguous()){
-            posNewi = getRowIndex(move);
-            posNewj = getColumnIndex(move);
             if(findPiece(move)==Piece.PAWN){
+                posNewi = getRowIndex(move);
+                posNewj = getColumnIndex(move);
                 for(int i = 1; i < 9; i++){
-                    if(color == 'W'){
+                    if (color == 'W'){
                         posi =  chessBoard.pieceToIndex.get("p"+i)[0];
                         posj =  chessBoard.pieceToIndex.get("p"+i)[1];
                     }
@@ -33,8 +33,8 @@ public class PGNTracer {
                         
                     if(chessBoard.isValidPawnMove(color,posi, posj, posNewi, posNewj)){    
                         chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
-                    }
-                    
+                        
+                    }   
                 }
             }
             else if(findPiece(move)==Piece.KNIGHT){
@@ -50,13 +50,14 @@ public class PGNTracer {
                             posi =  chessBoard.pieceToIndex.get("N"+i)[0];
                             posj =  chessBoard.pieceToIndex.get("N"+i)[1];
                         }
-              
+                        System.out.println(posi+" "+posj);    
                         if(chessBoard.isValidKnightMove(posi, posj, posNewi, posNewj)){    
                             chessBoard.updateChessBoard(posi, posj, posNewi , posNewj );
                             break;
                         }   
                 }
             }
+            
         }
     }
     
@@ -100,7 +101,5 @@ public class PGNTracer {
     
     public int getRowIndex(String pgnMove) {
         return 8 - Integer.parseInt(""+pgnMove.charAt(1));
-    }
-    
-    
+    }    
 }
