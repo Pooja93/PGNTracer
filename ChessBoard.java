@@ -110,6 +110,13 @@ public class ChessBoard {
 		}
 
 	}
-    public void updateChessBoard(int x1, int y1, int x2, int y2){
-    }
+    
+	public void updateChessBoard(int fromX, int fromY, int toX, int toY) {
+		String piece = board[fromX][fromY];
+		board[toX][toY] = piece;
+		board[fromX][fromY] = "";
+		int[] indices = { toX, toY };
+		pieceToIndex.put(piece, indices);
+
+	}
 }
