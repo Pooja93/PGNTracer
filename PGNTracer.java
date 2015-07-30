@@ -20,7 +20,9 @@ public class PGNTracer {
         int posNewi;
         int posNewj;
         String pieceName;
-        if (!isAmbiguous()) {
+        
+        
+        if (!isAmbiguous(move)) {
             if (findPiece(move) == Piece.PAWN) {
                 posNewi = getRowIndex(move.substring(move.length() - 2));
                 posNewj = getColumnIndex(move.substring(move.length() - 2));
@@ -79,7 +81,30 @@ public class PGNTracer {
                         }
                     }
                 }
-            } else if (findPiece(move) == Piece.QUEEN) {
+            }
+             else if (findPiece(move) == Piece.ROOKS) {
+                posNewi = getRowIndex(move.substring(move.length() - 2));
+                posNewj = getColumnIndex(move.substring(move.length() - 2));
+                
+                if (color == 'W') {
+                    pieceName = "r";
+                } else {
+                    pieceName = "R";
+                }
+                
+                for (int i = 1; i < 3; i++) {
+                    if(chessBoard.pieceToIndex.containsKey(pieceName + i)) {
+                        posi = chessBoard.pieceToIndex.get(pieceName + i)[0];
+                        posj = chessBoard.pieceToIndex.get(pieceName + i)[1];
+                  
+                        if (chessBoard.isValidRookMove(posi, posj, posNewi, posNewj)) {
+                            chessBoard.updateChessBoard(posi, posj, posNewi, posNewj, isCapture(move));
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (findPiece(move) == Piece.QUEEN) {
                 posNewi = getRowIndex(move.substring(move.length() - 2));
                 posNewj = getColumnIndex(move.substring(move.length() - 2));
                 
@@ -119,10 +144,18 @@ public class PGNTracer {
             }
             
         }
+        else{
+                posi = getCurrentPosition(color, move)[0];
+                posj = getCurrentPosition(color, move)[1];
+                System.out.println("--> "+posi+" "+posj);
+                posNewi = getRowIndex(move.substring(move.length() - 2));
+                posNewj = getColumnIndex(move.substring(move.length() - 2));
+                chessBoard.updateChessBoard(posi, posj, posNewi, posNewj, isCapture(move));
+        }
     }
 
     private boolean isAmbiguous(String move) {
-        if (findPiece(move) == Piece.PAWN) {
+      if (findPiece(move) == Piece.PAWN) {
             return move.length() == 4 ;
         }
         if(move.length() == 4 ) {
@@ -130,8 +163,10 @@ public class PGNTracer {
         }
         if (move.length() == 5)
             return move.indexOf('x') != -1;
-        return false; 
+        return false;
     }
+    
+    
 
     private Piece findPiece(String move) {
         char firstChar = move.charAt(0);
@@ -167,7 +202,6 @@ public class PGNTracer {
 
     public boolean isCapture(String move) {
         return (move.indexOf('x') != -1);
-
     }
     
     private String preProcessMove(String move) {
@@ -176,6 +210,7 @@ public class PGNTracer {
         }
         return move;
     }
+    
     public int[] getCurrentPosition(char color, String move) {
 		int row, column;
 		String pieceName = "";
@@ -183,25 +218,28 @@ public class PGNTracer {
 		if (findPiece(move) == Piece.PAWN) {
 			pieceName = "P";
 		} else if (findPiece(move) == Piece.KNIGHT) {
-			pieceName = "K";
+			pieceName = "N";
 		} else if (findPiece(move) == Piece.ROOKS) {
 			pieceName = "R";
 		} else if (findPiece(move) == Piece.BISHOP) {
 			pieceName = "B";
 		}
 		if (color == 'W') {
-			pieceName.toLowerCase();
+			pieceName = pieceName.toLowerCase();
 		}
+                
 		if (Character.isLetter(move.charAt(1))) {
-			column = move.charAt(1) - 'a';
-			for (int i = 0; i < 8; i++) {
-				if (chessBoard.board[i][column] == pieceName + "1" || chessBoard.board[i][column] == pieceName + "2") {
+                	column = move.charAt(1) - 'a';
+                        for (int i = 0; i < 8; i++) {
+                                
+				if (chessBoard.board[i][column].equals(pieceName + "1") || chessBoard.board[i][column].equals(pieceName + "2")) {
 					int[] indices = { i, column };
-					return indices;
+                                        return indices;
 				}
 			}
 
-		} else {
+		} 
+                else {
 			row = 8 - Integer.parseInt("" + move.charAt(1));
 
 			for (int i = 0; i < 8; i++) {
@@ -211,6 +249,9 @@ public class PGNTracer {
 				}
 			}
 		}
-
+            return new int[2];    
 	}
 }
+
+
+
