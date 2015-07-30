@@ -77,50 +77,40 @@ public class ChessBoard {
     }
     
     public boolean isValidBishopMove(int fromX,int fromY, int toX, int toY){
-		if (Math.abs(fromX-toX) == Math.abs(fromY-toY)) {
-			if (fromX < toX) {
-				if (fromY < toY) {
-					for( int i = fromX + 1, j = fromY + 1 ; i < toX && j < toY ; i++, j++) {
-						if (!board[i][j].equals("")) {
-							return false;	
-						}
-					}
-					return true;
-				}
-				else {
-					for( int i = fromX + 1, j = fromY - 1 ; i < toX && j > toY ; i++, j--) {
-						if (!board[i][j].equals("")) {
-							return false;	
-						}
-					}
-					return true;//+ -
-				}
+	if (Math.abs(fromX-toX) == Math.abs(fromY-toY)) {
+		int xInc = 0;
+		int yInc = 0;
+		if (fromX < toX) {
+			if (fromY < toY) {
+				xInc = 1;
+				yInc = 1;
 			}
 			else {
-				if (fromY < toY) {
-					for( int i = fromX - 1, j = fromY + 1 ; i > toX && j < toY ; i--, j++) {
-						if (!board[i][j].equals("")) {
-							return false;	
-						}
-					}
-					return true;
-					//- +
-				}
-				else {
-					for( int i = fromX - 1, j = fromY - 1; i > toX && j > toY ; i--, j--) {
-						if (!board[i][j].equals("")) {
-							return false;	
-						}
-					}
-					return true;
-					//- -
-				}
+				xInc = 1;
+				yInc = -1;
 			}
 		}
 		else {
-			return false;
+			if (fromY < toY) {
+				xInc = -1;
+				yInc = 1;
+			}
+			else {
+				xInc = -1;
+				yInc = -1;
+			}
 		}
+		for( int i = fromX + xInc, j = fromY + yInc ; i != toX && j != toY ; i += xInc, j += yInc ) {
+			if (!board[i][j].equals("")) {
+				return false;	
+			}
+		}
+		return true;
 	}
+	else {
+		return false;
+	}
+}
     
     public boolean isValidKingMove(int x1, int y1, int x2, int y2){
         return true;
