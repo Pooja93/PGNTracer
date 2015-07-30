@@ -169,4 +169,10 @@ public class PGNTracer {
         return (move.indexOf('x') != -1);
 
     }
+    
+    private preProcessMove(String move) {
+        if(move.charAt(move.length()-1) == '+') {
+            return move.substring(0,move.length()-1);
+        }
+    }
 }
