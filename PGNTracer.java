@@ -176,4 +176,41 @@ public class PGNTracer {
         }
         return move;
     }
+    public int[] getCurrentPosition(char color, String move) {
+		int row, column;
+		String pieceName = "";
+
+		if (findPiece(move) == Piece.PAWN) {
+			pieceName = "P";
+		} else if (findPiece(move) == Piece.KNIGHT) {
+			pieceName = "K";
+		} else if (findPiece(move) == Piece.ROOKS) {
+			pieceName = "R";
+		} else if (findPiece(move) == Piece.BISHOP) {
+			pieceName = "B";
+		}
+		if (color == 'W') {
+			pieceName.toLowerCase();
+		}
+		if (Character.isLetter(move.charAt(1))) {
+			column = move.charAt(1) - 'a';
+			for (int i = 0; i < 8; i++) {
+				if (chessBoard.board[i][column] == pieceName + "1" || chessBoard.board[i][column] == pieceName + "2") {
+					int[] indices = { i, column };
+					return indices;
+				}
+			}
+
+		} else {
+			row = 8 - Integer.parseInt("" + move.charAt(1));
+
+			for (int i = 0; i < 8; i++) {
+				if (chessBoard.board[row][i] == pieceName + "1" || chessBoard.board[row][i] == pieceName + "2") {
+					int[] indices = { row, i };
+					return indices;
+				}
+			}
+		}
+
+	}
 }
