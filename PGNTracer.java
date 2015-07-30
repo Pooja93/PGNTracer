@@ -121,8 +121,16 @@ public class PGNTracer {
         }
     }
 
-    private boolean isAmbiguous() {
-        return false;
+    private boolean isAmbiguous(String move) {
+        if (findPiece(move) == Piece.PAWN) {
+            return move.length() == 4 ;
+        }
+        if(move.length() == 4 ) {
+            return move.indexOf('x') == -1;
+        }
+        if (move.length() == 5)
+            return move.indexOf('x') != -1;
+        return false; 
     }
 
     private Piece findPiece(String move) {
